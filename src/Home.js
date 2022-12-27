@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Header from './Header'
 
 function Home() {
@@ -24,7 +25,6 @@ function Home() {
     alert(result.message);
     load();
   }
-
 
   return (
     <div>
@@ -53,6 +53,9 @@ function Home() {
                 <img style={{width:160}} src={'http://localhost:8000'+item.image} alt={item.name} />
               </td>
               <td>
+                <Link to={"update/"+item.id}>
+                  <button className='btn btn-primary'>Update</button>
+                </Link>
                 <button className='btn btn-danger' onClick={()=>destroy(item.id)}>Delete</button>
               </td>
             </tr>

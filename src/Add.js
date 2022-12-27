@@ -22,8 +22,6 @@ function Add() {
     });
     result = await result.json();
     alert(result.message)
-    
-
   }
 
 

@@ -26,7 +26,7 @@ function Header() {
               localStorage.getItem('userInfo')?
               <>
                 <Link className='nav-item nav-link' to="/add">Add Product</Link>
-                <Link className='nav-item nav-link' to="/update">Update Product</Link>
+                {/* <Link className='nav-item nav-link' to="/update">Update Product</Link> */}
               </>
               :
               <>
