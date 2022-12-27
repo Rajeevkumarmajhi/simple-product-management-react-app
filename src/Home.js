@@ -6,14 +6,24 @@ function Home() {
   const [data,setData] = useState([]);
 
   useEffect(()=>{
-    const load = async () => {
-      let result = await fetch('http://localhost:8000/api/product');
-      result = await result.json();
-      setData(result[0])
-    }
     load();
-
   },[]);
+
+  const load = async () => {
+    let result = await fetch('http://localhost:8000/api/product');
+    result = await result.json();
+    setData(result[0])
+  }
+
+  async function destroy(id)
+  {
+    let result = await fetch("http://localhost:8000/api/product/"+id,{
+      method:"DELETE"
+    });
+    result = await result.json();
+    alert(result.message);
+    load();
+  }
 
 
   return (
@@ -28,6 +38,7 @@ function Home() {
             <th>Price</th>
             <th>Description</th>
             <th>Image</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -39,7 +50,10 @@ function Home() {
               <td>{item.price}</td>
               <td>{item.description}</td>
               <td>
-                <img style={{width:160}} src={'http://localhost:8000/storage/'+item.image} alt={item.name} />
+                <img style={{width:160}} src={'http://localhost:8000'+item.image} alt={item.name} />
+              </td>
+              <td>
+                <button className='btn btn-danger' onClick={()=>destroy(item.id)}>Delete</button>
               </td>
             </tr>
             )
