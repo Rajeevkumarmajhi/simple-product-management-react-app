@@ -13,18 +13,20 @@ function UpdateProduct() {
   const [image,setImage] = useState("");
 
   useEffect(()=>{
-    load();
+    const load = async (id) => {
+      let result = await fetch('http://localhost:8000/api/product/'+id);
+      result = await result.json();
+      setId(result[0].id)
+      setName(result[0].name)
+      setDescription(result[0].description)
+      setPrice(result[0].price)
+      setImage(result[0].image)
+    }
+
+    load(id);
   },[]);
 
-  const load = async () => {
-    let result = await fetch('http://localhost:8000/api/product/'+id);
-    result = await result.json();
-    setId(result[0].id)
-    setName(result[0].name)
-    setDescription(result[0].description)
-    setPrice(result[0].price)
-    setImage(result[0].image)
-  }
+  
 
   const update = async () =>{
 
@@ -51,15 +53,15 @@ function UpdateProduct() {
       <div className='col-sm-6 offset-sm-3'>
         <div className='form-group text-left'>
           <label>Name</label>
-          <input type="text" className='form-control' onChange={(e)=>setName(e.target.value)} value={name} />
+          <input type="text" className='form-control' onChange={(e)=>setName(e.target.value)} defaultValue={name} />
         </div>
         <div className='form-group text-left'>
           <label>Description</label>
-          <input type="text" className='form-control' onChange={(e)=>setDescription(e.target.value)} value={description} />
+          <input type="text" className='form-control' onChange={(e)=>setDescription(e.target.value)} defaultValue={description} />
         </div>
         <div className='form-group text-left'>
           <label>Price</label>
-          <input type="number" className='form-control' onChange={(e)=>setPrice(e.target.value)} value={price} />
+          <input type="number" className='form-control' onChange={(e)=>setPrice(e.target.value)} defaultValue={price} />
         </div>
         <div className='form-group text-left'>
           <label>Image</label>
